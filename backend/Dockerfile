@@ -1,13 +1,13 @@
 FROM node:18
 
-WORKDIR /frontend
+WORKDIR /app
 
-EXPOSE 3000                 
+EXPOSE 4000                 
 
 COPY package*.json .  
 
-RUN npm ci --only=production 
+RUN npm install 
 
 COPY . .     
 
-CMD ["npm", "start", "dev"]        
+CMD ["node", "main.js"]

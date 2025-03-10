@@ -1,27 +1,5 @@
-# Podem crear cadascuna de les imatges per a la nostra aplicació 
-# a partir del Dockerfile que té cada una de les carpetes
-# o bé amb compose aixecar-los tots de cop i que facin referencina
-# al codi que tenim just en aquest moment.
-
-# Recordeu que si creem les imatges, el codi no s'actualitza fins
-# que no tornem a crear la imatge. Els fitxers "Dockerfile" copien
-# a dins de la imatge el codi font corresponent. 
-# Per això, si volem que s'actualitzi
-# cada cop que engeguem el contenidor, hem de fer servir aquest compose
-# que monta el codi de la nostra aplicació com un volum per a cadascuna de les imatges
 
 services:
-
-  # Servidor node que aixeca un WebSocker al prt 8080
-  # el codi està a la carpeta "node" i s'executa amb "npm start"
-  # S'ha de fer un npm install per instal·lar les dependències
-  # Es pot accedir DINS del contenidor una vegada aixecat amb
-  # docker exec -it [nom_contenidor o ID] /bin/bash
-  # El Dockerfile és totalment autocontingut, però aquí depen de la carpeta node_modules
-  # que ja hi hagi
-  
-
-  # Aplicació per accedir via web a la nostra base de dades, al port 9090
   adminer:
     image: adminer:4.7.7
     restart: always
@@ -46,6 +24,7 @@ services:
       # Per crear algunes taules al primer inici
       - ./mysql/dades.sql:/docker-entrypoint-initdb.d/dades.sql
   
+
   backend:
     build:
       context: ./backend
@@ -58,4 +37,17 @@ services:
       - /app/node_modules
     depends_on:
       - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
 
