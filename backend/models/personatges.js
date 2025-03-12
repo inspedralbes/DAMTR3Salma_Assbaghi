@@ -1,37 +1,41 @@
 import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-  return sequelize.define('Jugador', {
+  return sequelize.define('Personatge', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    nomb: {
+    nom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    usuari: {
-      type: DataTypes.STRING,
+    força: {
+      type: DataTypes.INTEGER,
       unique: true,
       allowNull: false,
     },
-    puntuacio: {
+    rapidessa: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
-    contrassenya: {
+    enemic: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    coin_multiplier: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 0,
     },
-    id_personatge: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    preu : {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
-
   }, {
-    tableName: 'jugadors',
+    tableName: 'personatges',
     timestamps: false,
   });
 };

@@ -1,4 +1,3 @@
-// models/categoria.js
 import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
