@@ -1,42 +1,33 @@
-
 services:
-  adminer:
-    image: adminer:4.7.7
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
     restart: always
-    ports:
-      - 9090:8080
-    depends_on:
-      - db
-
-  db:
-    image: mysql:8.2.0
-    restart: always
+    env_file:
+      - .env 
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: tr3
-      MYSQL_USER: tr3
-      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: salma
+      MYSQL_USER: usuari
+      MYSQL_PASSWORD: rootpassword
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
-      # Per guardar les dades de forma persistent
-      - ./mysql_data:/var/lib/mysql
-      # Per crear algunes taules al primer inici
-      - ./mysql/dades.sql:/docker-entrypoint-initdb.d/dades.sql
-  
-
+      - mysql_data:/var/lib/mysql
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
     restart: always
+    env_file:
+      - .env 
     ports:
       - 4000:4000
     volumes:
       - ./backend:/app
       - /app/node_modules
     depends_on:
-      - db
+      - mysql
 
   frontend:
     build:
@@ -45,9 +36,20 @@ services:
     restart: always
     ports:
       - 3000:3000
+    env_file:
+      - .env 
     volumes:
       - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
 
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
