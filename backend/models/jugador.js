@@ -7,7 +7,7 @@ export default (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
-    nomb: {
+    nom: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -23,7 +23,7 @@ export default (sequelize) => {
     contrassenya: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 0,
+      defaultValue: '',
     },
     id_personatge: {
       type: DataTypes.INTEGER,
