@@ -1,8 +1,11 @@
 import express from 'express';
-import { Jugador, Partida, Personatge } from '../mysql/index.js';
+import { Jugador, Partida, Personatge,Nivell } from '../mysql/index.js';
 
 const router = express.Router();
-//BBDD ENDPOINTS
+
+
+
+//BBDD ENDPOINTS ---------------------------------------------------------------------------------
 router.get('/partides', async (req, res) => {
   try {
     const partides = await Partida.findAll();
@@ -55,6 +58,56 @@ router.post('/jugadors', async (req, res) => {
     res.status(500).json({ error: 'Error creant jugador', details: err.message });
   }
 });
+router.get('/jugadors/:id', async (req, res) => {
+  try {
+    const jugador = await Jugador.findByPk(req.params.id, { include: [Partida, Personatge] });
+    if (jugador) {
+      res.json(jugador);
+    } else {
+      res.status(404).json({ error: 'Jugador no trobat' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error obtenint jugador', details: err.message });
+  }
+});
 
+router.put('/jugadors/:id', async (req, res) => { //PUT per modificar
+  try {
+    const jugador = await Jugador.findByPk(req.params.id);
+    if (jugador) {
+      jugador.update(req.body);
+      res.json(jugador);
+    } else {
+      res.status(404).json({ error: 'Jugador no trobat' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error modificant jugador', details: err.message });
+  }
+
+  router.delete('/jugadors/:id', async (req, res) => {
+    try {
+      const jugador = await Jugador.findByPk(req.params.id);
+      if (jugador) {
+        jugador.destroy();
+        res.json(jugador);
+      } else {
+        res.status(404).json({ error: 'Jugador no trobat' });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Error eliminant jugador', details: err.message });
+    }
+  });
+}
+);
+
+router.get('nivells', async (req, res) => {
+  try {
+    const nivells = await Nivell.findAll();
+    res.json(nivells);
+  } catch (err) {
+    res.status(500).json({ error: 'Error obtenint nivells', details: err.message });
+  }
+}
+);
 
 export default router;

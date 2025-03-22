@@ -27,7 +27,7 @@ export default (sequelize) => {
     },
     id_personatge: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      defaultValue: 1,
     }
 
   }, {
