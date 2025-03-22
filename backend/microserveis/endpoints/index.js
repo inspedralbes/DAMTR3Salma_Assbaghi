@@ -1,9 +1,67 @@
 import express from 'express';
-import { Jugador, Partida, Personatge,Nivell } from '../mysql/index.js';
+import { Jugador, Partida, Personatge } from '../mysql/index.js';
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
+//LOGIN I REGISTRE---------------------------------------------------------------------------------
+router.post('/register', async (req, res) => {
+  const { nom, usuari, contrassenya, id_personatge } = req.body;
 
+  if (!nom || !usuari || !contrassenya || !id_personatge) {
+    return res.status(400).json({ error: 'Falten camps obligatoris.' });
+  }
+
+  try {
+    const personatge = await Personatge.findByPk(id_personatge);
+    if (!personatge) {
+      return res.status(404).json({ error: 'Personatge no trobat.' });
+    }
+
+    const existent = await Jugador.findOne({ where: { usuari } });
+    if (existent) {
+      return res.status(409).json({ error: 'Usuari ja registrat.' });
+    }
+
+    const hash = await bcrypt.hash(contrassenya, 10);
+
+    const jugador = await Jugador.create({
+      nom,
+      usuari,
+      contrassenya: hash,
+      id_personatge,
+    });
+
+    res.status(201).json({ missatge: 'Jugador registrat correctament', jugador });
+  } catch (error) {
+    res.status(500).json({ error: 'Error registrant jugador', details: error.message });
+  }
+});
+
+router.post('/login', async (req, res) => {
+  const { usuari, contrassenya } = req.body;
+
+  if (!usuari || !contrassenya) {
+    return res.status(400).json({ error: 'Falten camps obligatoris.' });
+  }
+
+  try {
+    const jugador = await Jugador.findOne({ where: { usuari } });
+
+    if (!jugador) {
+      return res.status(404).json({ error: 'Usuari no trobat.' });
+    }
+
+    const valid = await bcrypt.compare(contrassenya, jugador.contrassenya);
+    if (!valid) {
+      return res.status(401).json({ error: 'Contrasenya incorrecta.' });
+    }
+
+    res.status(200).json({ missatge: 'Login correcte', jugador });
+  } catch (error) {
+    res.status(500).json({ error: 'Error en el login', details: error.message });
+  }
+});
 
 //BBDD ENDPOINTS ---------------------------------------------------------------------------------
 router.get('/partides', async (req, res) => {
@@ -100,14 +158,5 @@ router.put('/jugadors/:id', async (req, res) => { //PUT per modificar
 }
 );
 
-router.get('nivells', async (req, res) => {
-  try {
-    const nivells = await Nivell.findAll();
-    res.json(nivells);
-  } catch (err) {
-    res.status(500).json({ error: 'Error obtenint nivells', details: err.message });
-  }
-}
-);
 
 export default router;

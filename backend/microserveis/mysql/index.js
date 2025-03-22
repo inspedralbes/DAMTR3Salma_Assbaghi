@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import defineJugador from './models/jugador.js';
 import definePartida from './models/partida.js';
 import definePersonatge from './models/personatges.js';
-import defineNivell from './models/nivell.js';
 
 dotenv.config();
 
@@ -21,7 +20,6 @@ const sequelize = new Sequelize(
 const Jugador = defineJugador(sequelize);
 const Partida = definePartida(sequelize);
 const Personatge = definePersonatge(sequelize);
-const Nivell = defineNivell(sequelize);
 Jugador.hasMany(Partida, { foreignKey: 'jugadorId', onDelete: 'CASCADE' });
 Partida.belongsTo(Jugador, { foreignKey: 'jugadorId' });
 Jugador.belongsTo(Personatge, { foreignKey: 'id_personatge' });
@@ -44,5 +42,5 @@ const connectWithRetry = async () => {
 };
 
 connectWithRetry();
-export { sequelize, Jugador, Partida, Personatge, Nivell };
+export { sequelize, Jugador, Partida, Personatge };
 export default sequelize;
