@@ -8,8 +8,8 @@
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="handleLogin">
-              <v-text-field v-model="username" label="Username" required />
-              <v-text-field v-model="password" label="Password" type="password" required />
+              <v-text-field v-model="username" label="User" required />
+              <v-text-field v-model="password" label="Contrassenya" type="password" required />
               <v-btn type="submit" color="primary" block>Login</v-btn>
             </v-form>
           </v-card-text>
@@ -30,7 +30,7 @@ export default {
   methods: {
     handleLogin() {
       if (this.username === 'admin' && this.password === 'password') {
-        this.$router.push('/microservices');
+        this.$router.push('/microserveis');
       } else {
         alert('Login failed');
       }

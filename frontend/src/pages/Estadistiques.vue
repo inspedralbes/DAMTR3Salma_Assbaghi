@@ -16,9 +16,9 @@ export default {
   data() {
     return {
       stats: [
-        { name: 'Wins', value: 10 },
-        { name: 'Losses', value: 5 },
-        { name: 'Rank', value: 'Gold' }
+        { name: 'Guanyades', value: 10 },
+        { name: 'Perdudes', value: 5 },
+        { name: 'Nivell', value: 'Or' }
       ]
     };
   }

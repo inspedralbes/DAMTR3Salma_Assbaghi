@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '@/pages/Login.vue';
-import Microservices from '@/pages/MicroserviceControl.vue';
-import Players from '@/pages/Players.vue';
-import Stats from '@/pages/Stats.vue';
-import EditPlayer from '@/pages/EditPlayer.vue';
+import Microserveis from '@/pages/Microserveis.vue';
+import Jugadors from '@/pages/Jugadors.vue';
+import Estats from '@/pages/Estadistiques.vue';
+import EditPersonatge from '@/pages/EditPersonatge.vue';
 
 const routes = [
   { path: '/', name: 'login', component: Login },
-  { path: '/microservices', name: 'microservices', component: Microservices },
-  { path: '/players', name: 'players', component: Players },
-  { path: '/stats', name: 'stats', component: Stats },
-  { path: '/edit-player', name: 'edit-player', component: EditPlayer },
+  { path: '/microserveis', name: 'microserveis', component: Microserveis },
+  { path: '/jugadors', name: 'jugadors', component: Jugadors },
+  { path: '/estadistiques', name: 'estadistiques', component: Estats },
+  { path: '/EditPersonatge', name: 'EditPersonatge', component: EditPersonatge },
 ];
 
 const router = createRouter({

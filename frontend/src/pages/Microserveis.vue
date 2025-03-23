@@ -3,9 +3,9 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-card-title>Microservices Control</v-card-title>
+          <v-card-title>Control de microserveis</v-card-title>
           <v-card-text>
-            <v-btn @click="toggleService" color="primary">{{ serviceStatus }}</v-btn>
+            <v-btn @click="toggleService" color="primary">{{ estat }}</v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -17,15 +17,15 @@
 export default {
   data() {
     return {
-      serviceStatus: 'Start Service'
+      estat: 'Encendre Servei'
     };
   },
   methods: {
     toggleService() {
-      if (this.serviceStatus === 'Start Service') {
-        this.serviceStatus = 'Stop Service';
+      if (this.estat === 'Encendre Servei') {
+        this.estat = 'Apagar Servei';
       } else {
-        this.serviceStatus = 'Start Service';
+        this.estat = 'Encendre Servei';
       }
     }
   }

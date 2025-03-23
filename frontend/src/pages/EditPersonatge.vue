@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-form @submit.prevent="updateCharacter">
-      <v-text-field v-model="characterName" label="Character Name" required />
+      <v-text-field v-model="personatge" label="Personatge" required />
       <v-btn type="submit" color="primary">Update Character</v-btn>
     </v-form>
   </v-container>
@@ -11,14 +11,16 @@
 export default {
   data() {
     return {
-      characterName: 'Player 1'
+      personatge: 'Player 1'
     };
   },
   methods: {
     updateCharacter() {
-      console.log(`Updating character: ${this.characterName}`);
-      // Lógica para actualizar el personaje
-    }
-  }
+      console.log(`Updating character: ${this.personatge}`);
+
+      //  llamada a  API para actualizar el personaje}
+  
+      }
+      }
 };
 </script>
