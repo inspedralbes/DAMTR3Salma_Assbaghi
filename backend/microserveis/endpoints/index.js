@@ -1,7 +1,7 @@
 import express from 'express';
 import { Jugador, Partida, Personatge } from '../mysql/index.js';
 import bcrypt from 'bcryptjs';
-
+import cors from 'cors';
 const router = express.Router();
 
 //LOGIN I REGISTRE---------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ router.post('/personatges', async (req, res) => {
 
 router.get('/jugadors', async (req, res) => {
   try {
-    const jugadors = await Jugador.findAll({ include: [Partida, Personatge] });
+    const jugadors = await Jugador.findAll();
     res.json(jugadors);
   } catch (err) {
     res.status(500).json({ error: 'Error obtenint jugadors', details: err.message });
