@@ -129,7 +129,7 @@ router.get('/jugadors/:id', async (req, res) => {
   }
 });
 
-router.put('/jugadors/:id', async (req, res) => { //PUT per modificar
+router.put('/jugadors/:id', async (req, res) => { 
   try {
     const jugador = await Jugador.findByPk(req.params.id);
     if (jugador) {
@@ -141,6 +141,8 @@ router.put('/jugadors/:id', async (req, res) => { //PUT per modificar
   } catch (err) {
     res.status(500).json({ error: 'Error modificant jugador', details: err.message });
   }
+}
+);
 
   router.delete('/jugadors/:id', async (req, res) => {
     try {
@@ -155,8 +157,7 @@ router.put('/jugadors/:id', async (req, res) => { //PUT per modificar
       res.status(500).json({ error: 'Error eliminant jugador', details: err.message });
     }
   });
-}
-);
+
 
 
 export default router;
