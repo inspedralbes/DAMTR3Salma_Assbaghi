@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-  return sequelize.define('Jugador', {
+  return sequelize.define('Usuari', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -28,10 +28,14 @@ export default (sequelize) => {
     id_personatge: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
-    }
+    },
+    admin: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
 
   }, {
-    tableName: 'jugadors',
+    tableName: 'usuaris',
     timestamps: false,
   });
 };

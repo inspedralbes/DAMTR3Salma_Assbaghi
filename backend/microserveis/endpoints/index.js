@@ -1,12 +1,12 @@
 import express from 'express';
-import { Jugador, Partida, Personatge } from '../mysql/index.js';
+import { Usuari, Partida, Personatge } from '../mysql/index.js';
 import bcrypt from 'bcryptjs';
 import cors from 'cors';
 const router = express.Router();
 
 //LOGIN I REGISTRE---------------------------------------------------------------------------------
 router.post('/register', async (req, res) => {
-  const { nom, usuari, contrassenya, id_personatge } = req.body;
+  const { nom, usuari, contrassenya, id_personatge,admin } = req.body;
 
   if (!nom || !usuari || !contrassenya || !id_personatge) {
     return res.status(400).json({ error: 'Falten camps obligatoris.' });
@@ -18,18 +18,19 @@ router.post('/register', async (req, res) => {
       return res.status(404).json({ error: 'Personatge no trobat.' });
     }
 
-    const existent = await Jugador.findOne({ where: { usuari } });
+    const existent = await Usuari.findOne({ where: { usuari } });
     if (existent) {
       return res.status(409).json({ error: 'Usuari ja registrat.' });
     }
 
     const hash = await bcrypt.hash(contrassenya, 10);
 
-    const jugador = await Jugador.create({
+    const jugador = await Usuari.create({
       nom,
       usuari,
       contrassenya: hash,
       id_personatge,
+      admin,
     });
 
     res.status(201).json({ missatge: 'Jugador registrat correctament', jugador });
@@ -46,7 +47,7 @@ router.post('/login', async (req, res) => {
   }
 
   try {
-    const jugador = await Jugador.findOne({ where: { usuari } });
+    const jugador = await Usuari.findOne({ where: { usuari } });
 
     if (!jugador) {
       return res.status(404).json({ error: 'Usuari no trobat.' });
@@ -99,26 +100,26 @@ router.post('/personatges', async (req, res) => {
 }
 );
 
-router.get('/jugadors', async (req, res) => {
+router.get('/usuaris', async (req, res) => {
   try {
-    const jugadors = await Jugador.findAll();
+    const jugadors = await Usuari.findAll();
     res.json(jugadors);
   } catch (err) {
     res.status(500).json({ error: 'Error obtenint jugadors', details: err.message });
   }
 });
 
-router.post('/jugadors', async (req, res) => {
+router.post('/usuaris', async (req, res) => {
   try {
-    const jugador = await Jugador.create(req.body);
+    const jugador = await Usuari.create(req.body);
     res.status(201).json(jugador);
   } catch (err) {
     res.status(500).json({ error: 'Error creant jugador', details: err.message });
   }
 });
-router.get('/jugadors/:id', async (req, res) => {
+router.get('/usuaris/:id', async (req, res) => {
   try {
-    const jugador = await Jugador.findByPk(req.params.id, { include: [Partida, Personatge] });
+    const jugador = await Usuari.findByPk(req.params.id, { include: [Partida, Personatge] });
     if (jugador) {
       res.json(jugador);
     } else {
@@ -129,9 +130,9 @@ router.get('/jugadors/:id', async (req, res) => {
   }
 });
 
-router.put('/jugadors/:id', async (req, res) => { 
+router.put('/usuaris/:id', async (req, res) => { 
   try {
-    const jugador = await Jugador.findByPk(req.params.id);
+    const jugador = await Usuari.findByPk(req.params.id);
     if (jugador) {
       jugador.update(req.body);
       res.json(jugador);
@@ -144,9 +145,9 @@ router.put('/jugadors/:id', async (req, res) => {
 }
 );
 
-  router.delete('/jugadors/:id', async (req, res) => {
+  router.delete('/usuaris/:id', async (req, res) => {
     try {
-      const jugador = await Jugador.findByPk(req.params.id);
+      const jugador = await Usuari.findByPk(req.params.id);
       if (jugador) {
         jugador.destroy();
         res.json(jugador);

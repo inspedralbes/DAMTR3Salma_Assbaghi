@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-import defineJugador from './models/jugador.js';
+import defineUsuari from './models/usuari.js';
 import definePartida from './models/partida.js';
 import definePersonatge from './models/personatges.js';
 
@@ -17,13 +17,13 @@ const sequelize = new Sequelize(
   }
 );
 
-const Jugador = defineJugador(sequelize);
+const Usuari = defineUsuari(sequelize);
 const Partida = definePartida(sequelize);
 const Personatge = definePersonatge(sequelize);
-Jugador.hasMany(Partida, { foreignKey: 'jugadorId', onDelete: 'CASCADE' });
-Partida.belongsTo(Jugador, { foreignKey: 'jugadorId' });
-Jugador.belongsTo(Personatge, { foreignKey: 'id_personatge' });
-Personatge.hasMany(Jugador, { foreignKey: 'id_personatge' });
+Usuari.hasMany(Partida, { foreignKey: 'JugadorId', onDelete: 'CASCADE' });
+Partida.belongsTo(Usuari, { foreignKey: 'JugadorId' });
+Usuari.belongsTo(Personatge, { foreignKey: 'id_personatge' });
+Personatge.hasMany(Usuari, { foreignKey: 'id_personatge' });
 
 sequelize.sync({ alter: true }).then(() => {
   console.log("BBDD sincronizada");
@@ -42,5 +42,5 @@ const connectWithRetry = async () => {
 };
 
 connectWithRetry();
-export { sequelize, Jugador, Partida, Personatge };
+export { sequelize, Usuari, Partida, Personatge };
 export default sequelize;

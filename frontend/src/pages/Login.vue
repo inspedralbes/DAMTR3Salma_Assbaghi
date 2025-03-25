@@ -51,8 +51,14 @@ async function handleLogin() {
   try {
     error.value = '';
     const userData = await login(usuari.value, contrassenya.value);
+    console.log(userData);
+    if(userData.jugador.admin==1){
+      router.push('/microserveis');
+    }else{
+      error.value = 'No tens permís de administrador';
+      return;
+    }
     // localStorage.setItem('token', userData.token);
-    router.push('/microserveis');
   } catch (err) {
     error.value = err.message;
   }

@@ -15,10 +15,6 @@ export default (sequelize) => {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    jugadorId: {
-      type: DataTypes.INTEGER,
-      defaultValue: DataTypes.NOW,
-    }
   }, {
     tableName: 'partides',
     timestamps: true,
