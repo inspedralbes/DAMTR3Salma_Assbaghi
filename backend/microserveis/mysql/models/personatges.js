@@ -16,7 +16,7 @@ export default (sequelize) => {
       unique: true,
       allowNull: false,
     },
-    rapidessa: {
+    moveSpeed: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
@@ -25,7 +25,7 @@ export default (sequelize) => {
       allowNull: false,
       defaultValue: 0,
     },
-    coin_multiplier: {
+    coinMultiplier: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 0,

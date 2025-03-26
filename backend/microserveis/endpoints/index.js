@@ -90,6 +90,21 @@ router.get('/personatges', async (req, res) => {
   }
 }
 );
+router.get('/personatges/:id', async (req, res) => {
+  try {
+    const personatge = await Personatge.findByPk(req.params.id);
+    if (personatge) {
+      res.json(personatge);
+    }
+    else {
+      res.status(404).json({ error: 'Personatge no trobat' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error obtenint personatge', details: err.message });
+  }
+}
+);
+
 router.post('/personatges', async (req, res) => {
   try {
     const personatge = await Personatge.create(req.body);
@@ -99,6 +114,35 @@ router.post('/personatges', async (req, res) => {
   }
 }
 );
+
+router.put('/personatges/:id', async (req, res) => {
+  try {
+    const personatge = await Personatge.findByPk(req.params.id);
+    if (personatge) {
+      await personatge.update(req.body);
+      res.json(personatge);
+    } else {
+      res.status(404).json({ error: 'Personatge no trobat' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error actualitzant personatge', details: err.message });
+  }
+});
+
+router.delete('/personatges/:id', async (req, res) => {
+  try {
+    const personatge = await Personatge.findByPk(req.params.id);
+    if (personatge) {
+      personatge.destroy();
+      res.json(personatge);
+    } else {
+      res.status(404).json({ error: 'Jugador no trobat' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Error eliminant jugador', details: err.message });
+  }
+});
+
 
 router.get('/usuaris', async (req, res) => {
   try {
