@@ -7,6 +7,11 @@ export default (sequelize) => {
       autoIncrement: true,
       primaryKey: true,
     },
+    temps: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+  
     puntuacio: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -1,0 +1,13 @@
+{
+  "name": "logs-microservice",
+  "version": "1.0.0",
+  "description": "Microservice for storing Unity game logs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.3"
+  }
+}
