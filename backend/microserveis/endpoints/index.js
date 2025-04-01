@@ -202,7 +202,15 @@ router.put('/usuaris/:id', async (req, res) => {
       res.status(500).json({ error: 'Error eliminant jugador', details: err.message });
     }
   });
-
+  router.get('/estadistiques', (req, res) => {
+    import('fs').then(fs => {
+      fs.readFile('stats.json', 'utf-8', (err, data) => {
+        if (err) return res.status(500).json({ error: 'No s\'han pogut obtenir les estadístiques' });
+        res.json(JSON.parse(data));
+      });
+    });
+  });
+  
 
 
 export default router;

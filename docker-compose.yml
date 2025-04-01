@@ -52,6 +52,12 @@ services:
     ports:
       - "8080:8080"
 
+  stats-generator:
+    build: ./backend/microserveis/stats-service
+    restart: always
+    depends_on:
+      - mysql 
+
   mongo:
     image: mongo
     ports:
