@@ -3,6 +3,10 @@ import json
 import matplotlib.pyplot as plt
 from collections import defaultdict
 from datetime import datetime
+import os
+output_dir = './backend/microserveis/stats-service'
+os.makedirs(output_dir, exist_ok=True)
+output_path = os.path.join(output_dir, 'estadistiques.png')
 
 conn = mysql.connector.connect(
     host='dam.inspedralbes.cat',  
@@ -52,9 +56,9 @@ plt.title('Nombre de partides per día')
 plt.xticks(rotation=45)  # Rotar etiquetas del eje X
 
 # Mostrar el gráfico
-plt.tight_layout()  # Ajustar el diseño para que no se solapen las etiquetas
+plt.tight_layout()  
 plt.legend()
-plt.savefig('nombre_partides_per_dia.png', format='png')
+plt.savefig(output_path, format='png')
 
 # Cerramos la conexión
 cursor.close()

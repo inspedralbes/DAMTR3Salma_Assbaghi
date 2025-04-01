@@ -25,7 +25,7 @@ Partida.belongsTo(Usuari, { foreignKey: 'JugadorId' });
 Usuari.belongsTo(Personatge, { foreignKey: 'id_personatge' });
 Personatge.hasMany(Usuari, { foreignKey: 'id_personatge' });
 
-sequelize.sync({ alter: true }).then(() => {
+sequelize.sync({ alter: false }).then(() => {
   console.log("BBDD sincronizada");
 });
 const connectWithRetry = async () => {

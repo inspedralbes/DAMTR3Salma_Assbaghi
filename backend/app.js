@@ -4,13 +4,13 @@ import endpoints from './microserveis/endpoints/index.js';
 import mongo from './microserveis/mongoDB/index.js';
 
 import cors from 'cors';
-import { spawn } from 'child_process'; // Importar spawn para ejecutar scripts Python
+import { spawn } from 'child_process'; 
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
-const PORT = process.env.PORT || 4000;
+const PORT = 25670;
 
 app.use(express.json());
 app.use('/api', endpoints);
@@ -32,8 +32,8 @@ setInterval(() => {
   pythonProcess.on('close', (code) => {
     console.log(`Proces finalitzat amb el codi: ${code}`);
   });
-}, 5000); 
+}, 500000); 
 
 app.listen(PORT, () => {
-  console.log(`Servidor backend en http://localhost:${PORT}`);
+  console.log(`Servidor backend en http://supermariobros.dam.inspedralbes.cat:${PORT}`);
 });

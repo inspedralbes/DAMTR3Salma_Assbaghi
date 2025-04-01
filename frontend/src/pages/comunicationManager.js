@@ -1,6 +1,6 @@
 // src/communicationManager.js
 
-const BASE_URL = 'http://localhost:4000/api';
+const BASE_URL = 'http://supermariobros.dam.inspedralbes.cat:25670/api';
 
 export async function getJugadors() {
   const response = await fetch(`${BASE_URL}/usuaris`);
@@ -31,7 +31,7 @@ export async function deletePersonatge(id) {
 }
 
 export async function updatePersonatge(id, data) {
-  const response = await fetch(`http://localhost:4000/api/personatges/${id}`, {
+  const response = await fetch(`http://supermariobros.dam.inspedralbes.cat:25670/api/personatges/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)

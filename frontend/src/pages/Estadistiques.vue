@@ -5,7 +5,7 @@
         <h2 class="text-center">Estadístiques</h2>
         <v-card>
           <v-img
-            src="http://localhost:4000/api/stats/nombre_partides_per_dia.png"
+            src="http://supermariobros.dam.inspedralbes.cat:25670/api/estadistiques"
             alt="Estadístiques de partides"
             aspect-ratio="16/9"
           ></v-img>

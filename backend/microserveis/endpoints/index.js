@@ -5,9 +5,11 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 const router = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Servir archivos estáticos desde la carpeta stats-service
-// router.use('/stats', express.static(path.join(__dirname, '../stats-service')));
+router.use('/stats', express.static(path.join(__dirname, '../stats-service')));
 //LOGIN I REGISTRE---------------------------------------------------------------------------------
 router.post('/register', async (req, res) => {
   const { nom, usuari, contrassenya, id_personatge,admin } = req.body;
@@ -206,13 +208,18 @@ router.put('/usuaris/:id', async (req, res) => {
       res.status(500).json({ error: 'Error eliminant jugador', details: err.message });
     }
   });
-  // router.get('/estadistiques', (req, res) => {
-  //   fs.readFile('stats.json', 'utf-8', (err, data) => {
-  //     if (err) return res.status(500).json({ error: 'No s\'han pogut obtenir les estadístiques' });
-  //     res.json(JSON.parse(data));
-  //   });
-  // });
+  router.get('/estadistiques', (req, res) => {
+    const imagePath = path.join(__dirname, '../stats-service/estadistiques.png');
     
+    fs.access(imagePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        return res.status(404).json({ error: 'No s\'ha trobat la imatge de les estadístiques.' });
+      }
+  
+      res.sendFile(imagePath);
+    });
+  });
+  
 
 
   export default router;
