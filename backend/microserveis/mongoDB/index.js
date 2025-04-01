@@ -1,11 +1,9 @@
-const express = require('express');
-const mongoose = require('mongoose');
+import express from 'express';
+import mongoose from 'mongoose';
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
-// Connect to MongoDB
-mongoose.connect('mongodb://mongo:27017/logs', {
+mongoose.connect('mongodb+srv://a23salassass:salma@cluster0.nyb9g2u.mongodb.net/logs?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -17,7 +15,7 @@ const logSchema = new mongoose.Schema({
 
 const Log = mongoose.model('Log', logSchema);
 
-app.post('/logs', async (req, res) => {
+router.post('/logs', async (req, res) => {
   try {
     const log = new Log(req.body);
     await log.save();
@@ -27,7 +25,13 @@ app.post('/logs', async (req, res) => {
   }
 });
 
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+router.get('/logs', async (req, res) => {
+  try {
+    const logs = await Log.find();
+    res.status(200).send(logs);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
+
+export default router;

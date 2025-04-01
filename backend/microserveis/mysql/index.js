@@ -7,13 +7,13 @@ import definePersonatge from './models/personatges.js';
 dotenv.config();
 
 const sequelize = new Sequelize(
-  process.env.MYSQL_DATABASE,
-  process.env.MYSQL_USER,
-  process.env.MYSQL_PASSWORD,
+  "a23salassass_mariobros",
+  "a23salassass_mariobros",
+  "L-280013-h",
   {
-    host: process.env.MYSQL_HOST || 'mysql',
+    host: 'dam.inspedralbes.cat',
     dialect: 'mysql',
-    logging: false,
+    port: 3306,
   }
 );
 

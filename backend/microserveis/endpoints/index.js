@@ -1,9 +1,13 @@
 import express from 'express';
 import { Usuari, Partida, Personatge } from '../mysql/index.js';
 import bcrypt from 'bcryptjs';
-import cors from 'cors';
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 const router = express.Router();
 
+// Servir archivos estáticos desde la carpeta stats-service
+// router.use('/stats', express.static(path.join(__dirname, '../stats-service')));
 //LOGIN I REGISTRE---------------------------------------------------------------------------------
 router.post('/register', async (req, res) => {
   const { nom, usuari, contrassenya, id_personatge,admin } = req.body;
@@ -202,15 +206,13 @@ router.put('/usuaris/:id', async (req, res) => {
       res.status(500).json({ error: 'Error eliminant jugador', details: err.message });
     }
   });
-  router.get('/estadistiques', (req, res) => {
-    import('fs').then(fs => {
-      fs.readFile('stats.json', 'utf-8', (err, data) => {
-        if (err) return res.status(500).json({ error: 'No s\'han pogut obtenir les estadístiques' });
-        res.json(JSON.parse(data));
-      });
-    });
-  });
-  
+  // router.get('/estadistiques', (req, res) => {
+  //   fs.readFile('stats.json', 'utf-8', (err, data) => {
+  //     if (err) return res.status(500).json({ error: 'No s\'han pogut obtenir les estadístiques' });
+  //     res.json(JSON.parse(data));
+  //   });
+  // });
+    
 
 
-export default router;
+  export default router;

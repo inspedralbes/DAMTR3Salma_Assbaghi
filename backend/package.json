@@ -21,6 +21,7 @@
         "express": "^4.21.2",
         "fs": "^0.0.1-security",
         "mysql2": "^3.13.0",
+        "path": "^0.12.7",
         "scandir": "^0.1.2",
         "sequelize": "^6.37.6",
         "sqlite3": "^5.1.7",

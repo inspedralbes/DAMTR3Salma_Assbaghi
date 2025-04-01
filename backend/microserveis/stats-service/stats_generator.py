@@ -5,10 +5,10 @@ from collections import defaultdict
 from datetime import datetime
 
 conn = mysql.connector.connect(
-    host='localhost',  
-    user='root',
-    password='rootpassword',
-    database='salma'
+    host='dam.inspedralbes.cat',  
+    user='a23salassass_mariobros',
+    password='L-280013-h',
+    database='a23salassass_mariobros'
 )
 
 cursor = conn.cursor(dictionary=True)

@@ -33,6 +33,10 @@ export default (sequelize) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    timeStamp: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
 
   }, {
     tableName: 'usuaris',
