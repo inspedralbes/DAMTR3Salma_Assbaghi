@@ -1,7 +1,8 @@
 <template>
-  <v-container class="pa-6">
-    <v-card class="pa-4 elevation-3">
-      <v-card-title class="text-h5 font-weight-medium mb-4 text-center">
+  <v-container class="character-admin-container" fluid>
+    <v-card class="character-panel-card pa-6 elevation-4">
+      <v-card-title class="character-title d-flex align-center justify-center mb-6">
+        <v-icon start color="blue-darken-3" class="mr-2">mdi-account-cog</v-icon>
         Gestió de personatges
       </v-card-title>
 
@@ -13,41 +14,39 @@
           sm="6"
           md="4"
         >
-          <v-card class="pa-3" outlined>
-            <div class="d-flex justify-space-between align-center mb-2">
+          <v-card class="character-card pa-4">
+            <div class="d-flex justify-space-between align-center mb-4">
               <div>
-                <div class="font-weight-medium text-body-1">
-                  {{ personatge.nom }}
-                </div>
-                <div class="text-subtitle-2 text-grey-darken-1">
-                  {{ personatge.usuari }}
-                </div>
+                <div class="character-name">{{ personatge.nom }}</div>
               </div>
-              <v-btn icon color="red" @click="eliminaPersonatge(personatge.id)">
+              <v-btn icon class="delete-button" @click="eliminaPersonatge(personatge.id)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </div>
 
-            <!-- Campos para editar moveSpeed y coinMultiplier -->
             <v-text-field
               label="Velocitat (moveSpeed)"
               type="number"
               v-model.number="personatge.moveSpeed"
-              density="compact"
+              variant="solo"
+              color="indigo"
+              class="mb-3"
               hide-details
-              class="mb-2"
+              density="comfortable"
             />
+
             <v-text-field
               label="Multiplicador de monedes"
               type="number"
               v-model.number="personatge.coinMultiplier"
-              density="compact"
+              variant="solo"
+              color="teal"
+              class="mb-4"
               hide-details
-              class="mb-2"
+              density="comfortable"
             />
 
-            <!-- Botón para guardar cambios -->
-            <v-btn color="primary" block @click="guardarCanvis(personatge)">
+            <v-btn block color="green-darken-2" class="save-button" @click="guardarCanvis(personatge)">
               Guardar canvis
             </v-btn>
           </v-card>
@@ -96,16 +95,68 @@ onMounted(fetchPersonatges)
 </script>
 
 <style scoped>
-.v-card-title {
-  font-size: 1.4rem;
-  color: #2c3e50;
+.character-admin-container {
+  background: linear-gradient(to bottom, #87ceeb, #d0f0fd);
+  padding-bottom: 60px;
+  min-height: 100vh;
+  background-image: url('@/assets/login.png'); 
+  background-size: cover;
+  background-position: center;
 }
 
-.v-card {
-  border-radius: 12px;
+.character-panel-card {
+  max-width: 1300px;
+  margin: 0 auto;
+  border-radius: 18px;
+  background-image: url('https://scoutsecuador.org/wp-content/uploads/2023/05/112-fondos-de-pantalla-de-super-mario-bros.-hd-imagenes-de-fondo-fondo-de-pantalla.-wallpaper-2k-de-mario-bros.jpg'); /* textura retro */
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
 }
 
-.v-btn:hover {
-  background-color: #ffebee;
+.character-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.character-card {
+  border-radius: 18px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.character-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.character-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.character-user {
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+.delete-button {
+  color: #ef4444;
+  transition: background-color 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #ffe4e6;
+}
+
+.save-button {
+  font-weight: 600;
+  border-radius: 10px;
+  text-transform: none;
+  color: white;
 }
 </style>

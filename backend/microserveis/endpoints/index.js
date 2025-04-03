@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { spawn } from 'child_process'; // Import spawn from child_process
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -220,6 +221,60 @@ router.put('/usuaris/:id', async (req, res) => {
     });
   });
   
+  router.get('/estadistiques_usuaris', (req, res) => {
+    const imagePath = path.join(__dirname, '../stats-service/estadistiques_usuaris.png');
+    
+    fs.access(imagePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        return res.status(404).json({ error: 'No s\'ha trobat la imatge de les estadístiques.' });
+      }
+  
+      res.sendFile(imagePath);
+    });
+  });
+  router.get('/estadistiques_jugadors', (req, res) => {
+    const imagePath = path.join(__dirname, '../stats-service/jugadors.png');
+    
+    fs.access(imagePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        return res.status(404).json({ error: 'No s\'ha trobat la imatge de les estadístiques.' });
+      }
+  
+      res.sendFile(imagePath);
+    });
+  });
 
+
+router.post('/start-service', (req, res) => {
+  const { service } = req.body;
+  if (!service) {
+    return res.status(400).json({ error: 'Service name is required.' });
+  }
+
+  const servicePath = path.join(__dirname, `../${service}`);
+  const serviceProcess = spawn('node', [servicePath]);
+
+  serviceProcess.stdout.on('data', (data) => {
+    console.log(`Service ${service} output: ${data}`);
+  });
+
+  serviceProcess.stderr.on('data', (data) => {
+    console.error(`Service ${service} error: ${data}`);
+  });
+
+  serviceProcess.on('close', (code) => {
+    console.log(`Service ${service} stopped with code ${code}`);
+  });
+
+  res.status(200).json({ message: `Service ${service} started.` });
+});
+
+router.post('/stop-service', (req, res) => {
+  const { service } = req.body;
+  if (!service) {
+    return res.status(400).json({ error: 'Service name is required.' });
+  }
+  res.status(200).json({ message: `Service ${service} stopped.` });
+});
 
   export default router;

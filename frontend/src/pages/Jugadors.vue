@@ -1,8 +1,8 @@
 <template>
-  <v-container class="pa-6">
-    <v-card class="pa-4 elevation-3">
-      <v-card-title class="text-h5 font-weight-medium mb-4 text-center">
-        Gestió de jugadors
+  <v-container class="player-management-container" fluid>
+    <v-card class="player-main-card pa-6 elevation-5">
+      <v-card-title class="player-title">
+        🎮 GESTIÓ DE JUGADORS
       </v-card-title>
 
       <v-row dense>
@@ -13,16 +13,16 @@
           sm="6"
           md="4"
         >
-          <v-card class="pa-3 d-flex justify-space-between align-center" outlined>
+          <v-card class="player-card d-flex justify-space-between align-center">
             <div>
-              <div class="font-weight-medium text-body-1">
+              <div class="player-name">
                 {{ jugador.nom }}
               </div>
-              <div class="text-subtitle-2 text-grey-darken-1">
+              <div class="player-user">
                 {{ jugador.usuari }}
               </div>
             </div>
-            <v-btn icon color="red" @click="eliminaJugador(jugador.id)">
+            <v-btn icon class="delete-btn" @click="eliminaJugador(jugador.id)">
               <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-card>
@@ -59,16 +59,63 @@ onMounted(fetchJugadors)
 </script>
 
 <style scoped>
-.v-card-title {
-  font-size: 1.4rem;
-  color: #2c3e50;
+.player-management-container {
+  padding-bottom: 60px;
+  min-height: 100vh;
+  background-image: url('@/assets/login.png'); 
+  background-size: cover;
+  background-position: center;}
+
+.player-main-card {
+  border-radius: 24px;
+  background-image: url('https://scoutsecuador.org/wp-content/uploads/2023/05/112-fondos-de-pantalla-de-super-mario-bros.-hd-imagenes-de-fondo-fondo-de-pantalla.-wallpaper-2k-de-mario-bros.jpg'); /* textura retro */
+  background-size: cover;
+  background-position: center;
+  border: 4px solid #ff008c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
-.v-card {
-  border-radius: 12px;
+.player-title {
+  text-align: center;
+  font-size: 3rem;
+  color: #040e42;
+  margin-bottom: 30px;
 }
 
-.v-btn:hover {
-  background-color: #ffebee;
+.player-card {
+  border-radius: 20px;
+  padding: 20px;
+  background-color: #fefefe;
+  border: 3px solid #ff02a2;
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.player-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.player-name {
+  font-size: 0.9rem;
+  color: #3742fa;
+  margin-bottom: 5px;
+}
+
+.player-user {
+  font-size: 0.8rem;
+  color: #57606f;
+}
+
+.delete-btn {
+  background-color: #ff6b81;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.delete-btn:hover {
+  transform: scale(1.2) rotate(-10deg);
+  background-color: #ff4757;
 }
 </style>

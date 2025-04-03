@@ -19,7 +19,7 @@ app.use('/api', mongo);
 
 setInterval(() => {
   console.log(' stats_generator.py...');
-  const pythonProcess = spawn('python', ['./microserveis/stats-service/stats_generator.py']);
+  const pythonProcess = spawn('python3', ['./microserveis/stats-service/stats_generator.py']);
 
   pythonProcess.stdout.on('data', (data) => {
     console.log(`sortida: ${data}`);
