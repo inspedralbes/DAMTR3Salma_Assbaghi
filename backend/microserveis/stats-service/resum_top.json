@@ -1,0 +1,16 @@
+{
+    "millor_puntuacio": {
+        "puntuacio": 33,
+        "temps": 78.9,
+        "data": "2025-04-02 09:20:00"
+    },
+    "partida_mes_rapida": {
+        "puntuacio": 10,
+        "temps": 40.0,
+        "data": "2025-04-02 06:15:00"
+    },
+    "dia_mes_actiu": {
+        "dia": "2025-04-02",
+        "nombre_partides": 11
+    }
+}

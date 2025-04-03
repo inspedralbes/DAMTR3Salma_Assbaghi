@@ -1,0 +1,26 @@
+[
+    {
+        "dia": "2025-03-30",
+        "nombre_partides": 2,
+        "puntuacio_mitjana": 20.5,
+        "temps_mitja": 68.75
+    },
+    {
+        "dia": "2025-03-31",
+        "nombre_partides": 2,
+        "puntuacio_mitjana": 24.5,
+        "temps_mitja": 72.35
+    },
+    {
+        "dia": "2025-04-01",
+        "nombre_partides": 3,
+        "puntuacio_mitjana": 23.33,
+        "temps_mitja": 74.3
+    },
+    {
+        "dia": "2025-04-02",
+        "nombre_partides": 11,
+        "puntuacio_mitjana": 8.36,
+        "temps_mitja": 50.16
+    }
+]
